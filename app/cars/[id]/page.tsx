@@ -1,5 +1,5 @@
 interface CarPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 async function getCar(id: string) {
@@ -10,7 +10,9 @@ async function getCar(id: string) {
 }
 
 export default async function CarDetailsPage({ params }: CarPageProps) {
-  const car = await getCar(params.id);
+  const { id } = await params; // ← VAŽNO
+
+  const car = await getCar(id);
 
   return (
     <div>
